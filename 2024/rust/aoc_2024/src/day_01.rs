@@ -1,12 +1,14 @@
 use std::fs;
 use std::path::Path;
 
+/// Read the content of a file into a String.
 fn read_file_contents(file_path: impl AsRef<Path>) -> String {
     let contents: String =
         fs::read_to_string(file_path).expect("Should have been able to read the file");
     contents
 }
 
+/// Parse a string of two integers, e.g., "15   16\n48   16\n" into two lists of integers.
 fn parse_content(content: &str) -> (Vec<i32>, Vec<i32>) {
     content
         .lines()
