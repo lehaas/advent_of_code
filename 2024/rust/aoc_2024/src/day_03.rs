@@ -10,33 +10,19 @@ fn read_file_content(file_path: impl AsRef<Path>) -> String {
     content
 }
 
-fn parse_mul(chars: &[char]) -> Option<i32> {
-    let s: String = chars.iter().collect();
-
-    let re = Regex::new(r"^mul\(([0-9]{1,3}),([0-9]{1,3})\)").unwrap();
-    let cap = re.captures(&s);
-    // println!("{:?}", cap);
-    match cap {
-        Some(cap) => match (cap[1].parse::<i32>(), cap[2].parse::<i32>()) {
-            (Result::Ok(x), Result::Ok(y)) => {
-                // println!("{},{}", x, y);
-                Some(x * y)
-            }
-            _ => None,
-        },
-        None => None,
-    }
-}
-
 pub fn solve_part_1(path: &str) -> i32 {
     let content = read_file_content(path);
-    let res: i32 = content
+
+    let re = Regex::new(r"mul\((?<x>[0-9]{1,3}),(?<y>[0-9]{1,3})\)").unwrap();
+
+    let res = content
         .lines()
         .map(|line| {
-            line.chars()
-                .collect::<Vec<_>>()
-                .windows(5 + 2 * 3)
-                .filter_map(|s| parse_mul(s))
+            re.captures_iter(line)
+                .map(|c| match (c["x"].parse::<i32>(), c["y"].parse::<i32>()) {
+                    (Result::Ok(x), Result::Ok(y)) => x * y,
+                    _ => 0,
+                })
                 .sum::<i32>()
         })
         .sum();
