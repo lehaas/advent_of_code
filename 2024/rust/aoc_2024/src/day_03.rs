@@ -10,25 +10,43 @@ fn read_file_content(file_path: impl AsRef<Path>) -> String {
     content
 }
 
-pub fn solve_part_1(path: &str) -> i32 {
-    let content = read_file_content(path);
-
+/// Parse the string ignoring the memory corruption:
+/// - Ignore everything except for mul(x,y) for x and y, 3 character numbers
+/// - return the sum of the product of (x * y) s
+fn parse_program(line: &str) -> i32 {
     let re = Regex::new(r"mul\((?<x>[0-9]{1,3}),(?<y>[0-9]{1,3})\)").unwrap();
 
-    let res = content
-        .lines()
-        .map(|line| {
-            re.captures_iter(line)
-                .map(|c| match (c["x"].parse::<i32>(), c["y"].parse::<i32>()) {
-                    (Result::Ok(x), Result::Ok(y)) => x * y,
-                    _ => 0,
-                })
-                .sum::<i32>()
+    re.captures_iter(line)
+        .map(|c| match (c["x"].parse::<i32>(), c["y"].parse::<i32>()) {
+            (Result::Ok(x), Result::Ok(y)) => x * y,
+            _ => 0,
         })
-        .sum();
+        .sum::<i32>()
+}
+
+pub fn solve_part_1(path: &str) -> i32 {
+    let content = read_file_content(path);
+    let res = content.lines().map(|line| parse_program(line)).sum();
     res
 }
 
-pub fn solve_part_2(path: &str) -> usize {
-    0
+pub fn solve_part_2(path: &str) -> i32 {
+    let content = read_file_content(path);
+
+    // the entire content is considered a full program -> needs to be parsed as one
+    let program = content.lines().collect::<Vec<_>>().join("");
+
+    // filter out parts of the program following a don't until the next do
+    let filtered_program: String = program
+        .split("don't")
+        .enumerate()
+        .map(|(i, chunk)| match (i, chunk) {
+            // the first entry has an implicit "do"
+            (0, chunk) => chunk.to_string(),
+            // keep the entries after "do"
+            (_, chunk) => chunk.split("do").skip(1).collect::<String>(),
+        })
+        .collect::<String>();
+
+    parse_program(&filtered_program)
 }
