@@ -26,18 +26,14 @@ fn parse_program(line: &str) -> i32 {
 
 pub fn solve_part_1(path: &str) -> i32 {
     let content = read_file_content(path);
-    let res = content.lines().map(|line| parse_program(line)).sum();
-    res
+    parse_program(&content)
 }
 
 pub fn solve_part_2(path: &str) -> i32 {
     let content = read_file_content(path);
 
-    // the entire content is considered a full program -> needs to be parsed as one
-    let program = content.lines().collect::<Vec<_>>().join("");
-
     // filter out parts of the program following a don't until the next do
-    let filtered_program: String = program
+    let filtered_program: String = content
         .split("don't")
         .enumerate()
         .map(|(i, chunk)| match (i, chunk) {
