@@ -6,6 +6,9 @@ use std::path::Path;
 
 use itertools::max;
 
+pub const TASK_SMALL: &str = "../../data/day_09_small.txt";
+pub const TASK: &str = "../../data/day_09.txt";
+
 /// Read the content of a file into a String.
 fn read_file_content(file_path: impl AsRef<Path>) -> String {
     let content: String =

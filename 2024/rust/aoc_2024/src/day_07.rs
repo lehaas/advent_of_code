@@ -1,18 +1,11 @@
+use crate::utils;
+
 use core::iter::Iterator;
-use std::fmt::Debug;
 use std::fs;
-use std::ops;
 use std::path::Path;
 
-pub const task_small_path: &str = "../../data/day_07_small.txt";
-pub const task_path: &str = "../../data/day_07.txt";
-
-/// Read the content of a file into a String.
-fn read_file_content(file_path: impl AsRef<Path>) -> String {
-    let content: String =
-        fs::read_to_string(file_path).expect("Should have been able to read the file");
-    content
-}
+pub const TASK_SMALL: &str = "../../data/day_07_small.txt";
+pub const TASK: &str = "../../data/day_07.txt";
 
 fn parse_line(line: &str) -> Option<(u64, Vec<u64>)> {
     let (x, xs) = line.split_once(": ")?;
@@ -61,7 +54,7 @@ fn is_computable(target: u64, candidates: &Vec<u64>) -> Option<u64> {
 }
 
 pub fn solve_part_1(path: &str) -> u64 {
-    let content = read_file_content(path);
+    let content = utils::read_file_content(path);
 
     content
         .lines()
@@ -124,7 +117,7 @@ fn is_computable2(target: u64, candidates: &Vec<u64>) -> Option<u64> {
 }
 
 pub fn solve_part_2(path: &str) -> u64 {
-    let content = read_file_content(path);
+    let content = utils::read_file_content(path);
 
     content
         .lines()

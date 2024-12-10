@@ -3,6 +3,9 @@ use std::collections::HashSet;
 use std::fs;
 use std::path::Path;
 
+pub const TASK_SMALL: &str = "../../data/day_05_small.txt";
+pub const TASK: &str = "../../data/day_05.txt";
+
 /// Read the content of a file into a String.
 fn read_file_content(file_path: impl AsRef<Path>) -> String {
     let content: String =
