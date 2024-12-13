@@ -1,15 +1,9 @@
+use crate::utils;
 use std::fs;
 use std::path::Path;
 
 pub const TASK_SMALL: &str = "../../data/day_01_small.txt";
 pub const TASK: &str = "../../data/day_01.txt";
-
-/// Read the content of a file into a String.
-fn read_file_contents(file_path: impl AsRef<Path>) -> String {
-    let contents: String =
-        fs::read_to_string(file_path).expect("Should have been able to read the file");
-    contents
-}
 
 /// Parse a string of two integers, e.g., "15   16\n48   16\n" into two lists of integers.
 fn parse_content(content: &str) -> (Vec<i32>, Vec<i32>) {
@@ -26,7 +20,7 @@ fn parse_content(content: &str) -> (Vec<i32>, Vec<i32>) {
 }
 
 pub fn solve_part_1(path: &str) -> i32 {
-    let content = read_file_contents(path);
+    let content = utils::read_file_content(path);
 
     let (mut left, mut right) = parse_content(&content);
     left.sort();
@@ -38,7 +32,7 @@ pub fn solve_part_1(path: &str) -> i32 {
         .sum()
 }
 pub fn solve_part_2(path: &str) -> usize {
-    let content = read_file_contents(path);
+    let content = utils::read_file_content(path);
     let (left, right) = parse_content(&content);
 
     let res = left

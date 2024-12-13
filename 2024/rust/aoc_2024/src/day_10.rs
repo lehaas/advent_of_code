@@ -3,21 +3,16 @@ use std::collections::HashSet;
 use std::fs;
 use std::path::Path;
 
+use crate::utils;
+
 pub const TASK_SMALL: &str = "../../data/day_10_small.txt";
 pub const TASK: &str = "../../data/day_10.txt";
-
-/// Read the content of a file into a String.
-fn read_file_content(file_path: impl AsRef<Path>) -> String {
-    let content: String =
-        fs::read_to_string(file_path).expect("Should have been able to read the file");
-    content
-}
 
 fn print_map<T: std::fmt::Debug>(map: &Vec<Vec<T>>) {
     map.iter().for_each(|line: &Vec<T>| println!("{:?}", line));
 }
 pub fn solve_part_1(path: &str) -> usize {
-    let content = read_file_content(path);
+    let content = utils::read_file_content(path);
 
     let map: Vec<Vec<u32>> = parse_map(content);
 
@@ -72,7 +67,7 @@ pub fn solve_part_1(path: &str) -> usize {
 }
 
 pub fn solve_part_2(path: &str) -> usize {
-    let content = read_file_content(path);
+    let content = utils::read_file_content(path);
 
     let map = parse_map(content);
     print_map(&map);

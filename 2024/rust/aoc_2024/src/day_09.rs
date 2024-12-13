@@ -1,3 +1,4 @@
+use crate::utils;
 use core::iter::Iterator;
 use std::fmt::Debug;
 use std::fs;
@@ -9,15 +10,8 @@ use itertools::max;
 pub const TASK_SMALL: &str = "../../data/day_09_small.txt";
 pub const TASK: &str = "../../data/day_09.txt";
 
-/// Read the content of a file into a String.
-fn read_file_content(file_path: impl AsRef<Path>) -> String {
-    let content: String =
-        fs::read_to_string(file_path).expect("Should have been able to read the file");
-    content
-}
-
 pub fn solve_part_1(path: &str) -> i64 {
-    let content = read_file_content(path);
+    let content = utils::read_file_content(path);
 
     let mut blocks = parse_blocks(content);
 
@@ -64,7 +58,7 @@ fn parse_blocks(content: String) -> Vec<i32> {
 }
 
 pub fn solve_part_2(path: &str) -> i64 {
-    let content = read_file_content(path);
+    let content = utils::read_file_content(path);
 
     let mut blocks = parse_blocks(content);
 

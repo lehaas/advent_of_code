@@ -1,15 +1,9 @@
+use crate::utils;
 use std::fs;
 use std::path::Path;
 
 pub const TASK_SMALL: &str = "../../data/day_02_small.txt";
 pub const TASK: &str = "../../data/day_02.txt";
-
-/// Read the content of a file into a String.
-fn read_file_contents(file_path: impl AsRef<Path>) -> String {
-    let contents: String =
-        fs::read_to_string(file_path).expect("Should have been able to read the file");
-    contents
-}
 
 fn parse_content(contents: String) -> Vec<Vec<i32>> {
     contents
@@ -25,7 +19,7 @@ fn parse_content(contents: String) -> Vec<Vec<i32>> {
 }
 
 pub fn solve_part_1(path: &str) -> usize {
-    let contents = read_file_contents(path);
+    let contents = utils::read_file_content(path);
     let parsed_content = parse_content(contents);
 
     parsed_content.iter().filter(|line| is_safe(line)).count()
@@ -56,7 +50,7 @@ fn generate_removed_lists(input: &Vec<i32>) -> Vec<Vec<i32>> {
 }
 
 pub fn solve_part_2(path: &str) -> usize {
-    let contents = read_file_contents(path);
+    let contents = utils::read_file_content(path);
     let parsed_content = parse_content(contents);
     parsed_content
         .iter()

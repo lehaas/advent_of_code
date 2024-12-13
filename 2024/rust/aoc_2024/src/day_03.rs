@@ -1,3 +1,4 @@
+use crate::utils;
 use core::iter::Iterator;
 use regex::Regex;
 use std::fs;
@@ -5,13 +6,6 @@ use std::path::Path;
 
 pub const TASK_SMALL: &str = "../../data/day_03_small.txt";
 pub const TASK: &str = "../../data/day_03.txt";
-
-/// Read the content of a file into a String.
-fn read_file_content(file_path: impl AsRef<Path>) -> String {
-    let content: String =
-        fs::read_to_string(file_path).expect("Should have been able to read the file");
-    content
-}
 
 /// Parse the string ignoring the memory corruption:
 /// - Ignore everything except for mul(x,y) for x and y, 3 character numbers
@@ -28,12 +22,12 @@ fn parse_program(line: &str) -> i32 {
 }
 
 pub fn solve_part_1(path: &str) -> i32 {
-    let content = read_file_content(path);
+    let content = utils::read_file_content(path);
     parse_program(&content)
 }
 
 pub fn solve_part_2(path: &str) -> i32 {
-    let content = read_file_content(path);
+    let content = utils::read_file_content(path);
 
     // filter out parts of the program following a don't until the next do
     let filtered_program: String = content

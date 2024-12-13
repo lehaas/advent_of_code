@@ -1,16 +1,10 @@
+use crate::utils;
 use core::iter::Iterator;
 use std::fs;
 use std::path::Path;
 
 pub const TASK_SMALL: &str = "../../data/day_06_small.txt";
 pub const TASK: &str = "../../data/day_06.txt";
-
-/// Read the content of a file into a String.
-fn read_file_content(file_path: impl AsRef<Path>) -> String {
-    let content: String =
-        fs::read_to_string(file_path).expect("Should have been able to read the file");
-    content
-}
 
 fn find_start_position(map: &Vec<Vec<char>>) -> Option<(usize, usize)> {
     for (i, line) in map.iter().enumerate() {
@@ -94,7 +88,7 @@ fn print_map(map: &Vec<Vec<char>>) {
 }
 
 pub fn solve_part_1(path: &str) -> i32 {
-    let content = read_file_content(path);
+    let content = utils::read_file_content(path);
 
     let mut map = content
         .lines()
@@ -106,7 +100,7 @@ pub fn solve_part_1(path: &str) -> i32 {
 }
 
 pub fn solve_part_2(path: &str) -> i32 {
-    let content = read_file_content(path);
+    let content = utils::read_file_content(path);
 
     let original_map = content
         .lines()
