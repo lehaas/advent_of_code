@@ -6,3 +6,6 @@ edition = "2021"
 [dependencies]
 regex = "*"
 itertools= "*"  
+nalgebra = "0.33.2"
+ndarray = "0.16.1"
+ndarray-linalg = "0.16.0"
